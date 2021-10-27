@@ -1,23 +1,44 @@
 const createApplication = async ({ root }) => {
-  // const resFilms = await axios.get("https://swapi.dev/api/films/");
-  // const films = resFilms.data.results;
   const films = await getFilms();
 
-  const filmOptions = [];
+  const selectFilm = root.querySelector("#selectFilm");
+  const grid = root.querySelector("#grid");
+
+  //populate film dropdown list
   films.forEach((film, i) => {
-    filmOptions.push(`<option value="${i}">${film.title}</option>`);
+    const option = document.createElement("option");
+    option.setAttribute("value", i);
+    option.innerHTML = renderFilmOption(film.title);
+    selectFilm.appendChild(option);
   });
 
-  const filmString = filmOptions.join("");
-
-  root.innerHTML = `
-    <select id="selectFilm">
-      ${filmString}
-    </select>
-  `;
+  selectFilm.addEventListener("change", (e) => {
+    console.log(e);
+  });
 
   //get planets for film 0
   const planets = await getPlanets(films[0]);
+  console.log(planets);
+
+  //place planets in grid - move this to a function
+  grid.innerHTML = "<table></table>";
+  planets.forEach((planet, i) => {
+    const row = document.createElement("tr");
+    row.innerHTML = renderGrid(planet.name, i);
+    grid.appendChild(row);
+  });
+};
+
+const renderGrid = (planetName, i) => {
+  return `
+    <td><a href="${i}">${planetName}</a></td>
+  `;
+};
+
+const renderFilmOption = (title) => {
+  return `
+    ${title}
+  `;
 };
 
 const getFilms = async () => {
@@ -26,39 +47,39 @@ const getFilms = async () => {
 };
 
 const getPlanets = async ({ planets }) => {
-  console.log(planets);
+  const planetObjects = [];
   for (let planet of planets) {
     const resPlanet = await axios.get(planet);
-    console.log(resPlanet.data);
+    planetObjects.push(resPlanet.data);
   }
-  // return an array of planet objects
+  return planetObjects;
 };
 
-buildApp = async (root) => {
-  const resFilms = await axios.get("https://swapi.dev/api/films/");
-  const films = resFilms.data.results;
+// buildApp = async (root) => {
+//   const resFilms = await axios.get("https://swapi.dev/api/films/");
+//   const films = resFilms.data.results;
 
-  const filmOptions = [];
-  films.forEach((film, i) => {
-    filmOptions.push(`<option value="${i}">${film.title}</option>`);
-  });
+//   const filmOptions = [];
+//   films.forEach((film, i) => {
+//     filmOptions.push(`<option value="${i}">${film.title}</option>`);
+//   });
 
-  const filmString = filmOptions.join("");
+//   const filmString = filmOptions.join("");
 
-  root.innerHTML = `
-    <select id="filmSelect">
-      ${filmString}
-    </select>
-  `;
+//   root.innerHTML = `
+//     <select id="filmSelect">
+//       ${filmString}
+//     </select>
+//   `;
 
-  document
-    .querySelector("#filmSelect")
-    .addEventListener("change", async (e) => {
-      const choice = e.target.options.selectedIndex;
-      console.log(films[choice]);
-      //const resPlanets = await axios.get(``);
-    });
-};
+//   document
+//     .querySelector("#filmSelect")
+//     .addEventListener("change", async (e) => {
+//       const choice = e.target.options.selectedIndex;
+//       console.log(films[choice]);
+//       //const resPlanets = await axios.get(``);
+//     });
+// };
 
 createApplication({
   root: document.querySelector("#app"),
