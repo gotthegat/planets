@@ -5,40 +5,52 @@ const createApplication = async ({ root }) => {
   const grid = root.querySelector("#grid");
 
   //populate film dropdown list
-  films.forEach((film, i) => {
-    const option = document.createElement("option");
-    option.setAttribute("value", i);
-    option.innerHTML = renderFilmOption(film.title);
-    selectFilm.appendChild(option);
+  renderFilmOptions(selectFilm, films);
+
+  selectFilm.addEventListener("change", async (e) => {
+    // clear grid
+    grid.innerHTML = "";
+    console.log(films[e.target.selectedIndex]);
+    planets = await getPlanets(films[e.target.selectedIndex]);
+    console.log(planets);
+    renderGrid(grid, planets);
   });
 
-  selectFilm.addEventListener("change", (e) => {
-    console.log(e);
-  });
+  //handle initial film selection
+  let planets = await getPlanets(films[0]);
+  renderGrid(grid, planets);
+};
 
-  //get planets for film 0
-  const planets = await getPlanets(films[0]);
-  console.log(planets);
-
-  //place planets in grid - move this to a function
+const renderGrid = (grid, planets) => {
   grid.innerHTML = "<table></table>";
   planets.forEach((planet, i) => {
     const row = document.createElement("tr");
-    row.innerHTML = renderGrid(planet.name, i);
+    row.innerHTML = `<td><a class="planet" id="${i}" href="#">${planet.name}</a></td>`;
     grid.appendChild(row);
+  });
+  // add event listeners
+  document.querySelectorAll(".planet").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      // get details about planet into an object
+      let selectedPlanet = planets[e.target.id];
+      console.log(
+        selectedPlanet.climate,
+        selectedPlanet.name,
+        selectedPlanet.residents,
+        selectedPlanet.terrain
+      );
+    });
   });
 };
 
-const renderGrid = (planetName, i) => {
-  return `
-    <td><a href="${i}">${planetName}</a></td>
-  `;
-};
-
-const renderFilmOption = (title) => {
-  return `
-    ${title}
-  `;
+const renderFilmOptions = (dropdown, films) => {
+  films.forEach((film, i) => {
+    const option = document.createElement("option");
+    option.setAttribute("value", i);
+    option.innerHTML = film.title;
+    dropdown.appendChild(option);
+  });
 };
 
 const getFilms = async () => {
@@ -54,32 +66,6 @@ const getPlanets = async ({ planets }) => {
   }
   return planetObjects;
 };
-
-// buildApp = async (root) => {
-//   const resFilms = await axios.get("https://swapi.dev/api/films/");
-//   const films = resFilms.data.results;
-
-//   const filmOptions = [];
-//   films.forEach((film, i) => {
-//     filmOptions.push(`<option value="${i}">${film.title}</option>`);
-//   });
-
-//   const filmString = filmOptions.join("");
-
-//   root.innerHTML = `
-//     <select id="filmSelect">
-//       ${filmString}
-//     </select>
-//   `;
-
-//   document
-//     .querySelector("#filmSelect")
-//     .addEventListener("change", async (e) => {
-//       const choice = e.target.options.selectedIndex;
-//       console.log(films[choice]);
-//       //const resPlanets = await axios.get(``);
-//     });
-// };
 
 createApplication({
   root: document.querySelector("#app"),
