@@ -42,10 +42,12 @@ const renderForm = async ({
     <input id="orbital" value="${orbital_period}" /><br>
     <input id="rotation" value="${rotation_period}" /><br>
     ${await renderResidents(topResidents)}<br>
-    <img src="${await getPlanetImage(name)}" />
+    <img src="img/planet.png" />
     </form>
   `;
 };
+
+// <img src="${await getPlanetImage(name)}" />
 
 const renderGrid = (grid, planets) => {
   grid.innerHTML = "<table></table>";
@@ -80,9 +82,10 @@ const getFilms = async () => {
 };
 
 const getPlanetImage = async (name) => {
-  const imageSearch = `https://serpapi.com/search.json?engine=google&q=${name}&api_key=14bcaedc71f667f79d03f61cb646f5cbd800ed41def4e72ac5e9c6ad1e4889ff`;
+  const imageSearch = `https://serpapi.com/search.json?engine=google&q=${name}&tbm=isch&ijn=0&api_key=14bcaedc71f667f79d03f61cb646f5cbd800ed41def4e72ac5e9c6ad1e4889ff`;
+  // const imageSearch = `https://serpapi.com/search.json?engine=google&q=${name}&api_key=14bcaedc71f667f79d03f61cb646f5cbd800ed41def4e72ac5e9c6ad1e4889ff`;
   const resImage = await axios.get(imageSearch);
-  console.log(resImage);
+  return resImage.data.images_results[0].thumbnail;
 };
 
 const getPlanets = async ({ planets }) => {
