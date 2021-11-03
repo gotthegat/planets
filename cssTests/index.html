@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!--Import materialize.css-->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      media="screen,projection"
+    />
+
+    <title>Document</title>
+    <style>
+      body {
+        background-color: #121212;
+      }
+      .lowCard {
+        /* overlay lower card with white at 2% opacity */
+        background-image: linear-gradient(
+            rgba(255, 255, 255, 0.02) 0%,
+            rgba(255, 255, 255, 0.02) 100%
+          ),
+          linear-gradient(#121212 0%, #121212 100%);
+      }
+      .highCard {
+        /* overlay higher card with white at 12% opacity */
+        background-image: linear-gradient(
+            rgba(255, 255, 255, 0.12) 0%,
+            rgba(255, 255, 255, 0.12) 100%
+          ),
+          linear-gradient(#121212 0%, #121212 100%);
+      }
+      .card {
+        /* set text color to white 60% opacity */
+        color: rgba(255, 255, 255, 0.6);
+        height: 200px;
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="input-field">
+        <input
+          id="last_name"
+          type="text"
+          class="validate grey-text text-lighten-3"
+        />
+        <label for="last_name">Last Name</label>
+      </div>
+
+      <div class="card lowCard">Here is some text on my lower card.</div>
+      <div class="card highCard">Here is some text on my higher card.</div>
+    </div>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
+    ></script>
+  </body>
+</html>
