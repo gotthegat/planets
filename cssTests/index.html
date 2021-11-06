@@ -16,47 +16,13 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
       media="screen,projection"
     />
-
-    <title>Document</title>
     <style>
-      body {
-        background-color: #121212;
-      }
-      .lowCard {
-        /* overlay lower card with white at 2% opacity */
-        background-image: linear-gradient(
-            rgba(255, 255, 255, 0.02) 0%,
-            rgba(255, 255, 255, 0.02) 100%
-          ),
-          linear-gradient(#121212 0%, #121212 100%);
-      }
-      .highCard {
-        /* overlay higher card with white at 12% opacity */
-        background-image: linear-gradient(
-            rgba(255, 255, 255, 0.12) 0%,
-            rgba(255, 255, 255, 0.12) 100%
-          ),
-          linear-gradient(#121212 0%, #121212 100%);
-      }
-      .card {
-        /* set text color to white 60% opacity */
-        color: rgba(255, 255, 255, 0.6);
-        height: 200px;
-        width: 200px;
-      }
-      input {
-        color: rgba(255, 255, 255, 0.6);
-      }
-      .dropdown-content {
-        background-color: #121212;
-      }
-      .dropdown-content li > span {
-        color: rgba(255, 255, 255, 0.6);
-      }
-      .select-wrapper .caret {
-        fill: #9e9e9e;
+      .number {
+        font-size: larger;
+        font-weight: bold;
       }
     </style>
+    <title>Document</title>
   </head>
   <body>
     <div class="container">
@@ -70,18 +36,101 @@
           <label>Select a movie</label>
         </div>
       </div>
-      huh
-      <div class="input-field">
-        <input
-          id="last_name"
-          type="text"
-          class="validate grey-text text-lighten-3"
-        />
-        <label for="last_name">Last Name</label>
-      </div>
 
-      <div class="card lowCard">Here is some text on my lower card.</div>
-      <div class="card highCard">Here is some text on my higher card.</div>
+      <div class="row">
+        <form action="" class="col s12">
+          <div class="row">
+            <div class="col s6 offset-s3">
+              <div class="card deep-purple lighten-5">
+                <div class="card-content">
+                  <span class="card-title">Tatooine </span>
+
+                  <div class="card-tabs">
+                    <ul class="tabs tabs-fixed-width">
+                      <li class="tab"><a href="#info">Info</a></li>
+                      <li class="tab"><a href="#image">Image</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="card-content">
+                    <div id="info">
+                      <div class="row">
+                        <div class="col s4">
+                          <button type="submit" class="btn disabled">
+                            Save
+                          </button>
+                        </div>
+                        <div class="col s4">
+                          <button class="btn">New</button>
+                        </div>
+                        <div class="col s4">
+                          <button class="btn">Print</button>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col s6">
+                          Orbital Period:
+                          <span class="deep-purple-text text-darken-4 number"
+                            >304</span
+                          >
+                        </div>
+                        <div class="col s6">
+                          Rotation Period:
+                          <span class="deep-purple-text text-darken-4 number"
+                            >23</span
+                          >
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <textarea
+                            id="resident1"
+                            class="materialize-textarea validate"
+                          >
+Luke Skywalker</textarea
+                          >
+                          <label for="resident1">Resident 1</label>
+                          <span
+                            class="helper-text"
+                            data-error="wrong"
+                            data-success="right"
+                            >Try again</span
+                          >
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <textarea
+                            id="resident2"
+                            class="materialize-textarea validate"
+                          >
+C-3PO</textarea
+                          >
+                          <label for="resident2">Resident 2</label>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <textarea
+                            id="resident3"
+                            class="materialize-textarea validate"
+                          ></textarea>
+                          <label for="resident3">Resident 3</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="image">Image goes here</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!--JavaScript at end of body for optimized loading-->
@@ -93,6 +142,9 @@
       document.addEventListener("DOMContentLoaded", () => {
         var elems = document.querySelectorAll("select");
         var instances = M.FormSelect.init(elems, {});
+
+        var tabs = document.querySelectorAll(".tabs");
+        var instance = M.Tabs.init(tabs, {});
       });
     </script>
   </body>
